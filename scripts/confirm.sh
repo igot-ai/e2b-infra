@@ -30,15 +30,8 @@ if [[ "$ENV" != "dev" ]]; then
     exit 1
   fi
 
-  echo "Please type *production* to manually deploy to $ENV"
-  read input
-  if [ "$input" == "production" ]; then
-    echo "Proceeding..."
-    exit 0
-  else
-    echo "Invalid input. Exiting."
-    exit 1
-  fi
+  echo "Proceeding with deployment to $ENV..."
+  exit 0
 else
   exit 0
 fi
