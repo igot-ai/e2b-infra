@@ -27,6 +27,10 @@ FROM ubuntu:22.04
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     tzdata \
+    iptables \
+    iproute2 \
+    kmod \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /build/orchestrator/bin/orchestrator /usr/local/bin/orchestrator
