@@ -20,7 +20,11 @@ build:
 	$(eval COMMIT_SHA := $(shell git rev-parse --short HEAD))
 	@rm -rf .shared/
 	@cp -r ../shared .shared/
-	@docker build --platform linux/amd64 --output=bin --build-arg COMMIT_SHA="$(COMMIT_SHA)" .
+	@mkdir -p bin
+	@docker build --platform linux/amd64 --build-arg COMMIT_SHA="$(COMMIT_SHA)" -t orchestrator-build .
+	@docker create --name orchestrator-temp orchestrator-build /orchestrator
+	@docker cp orchestrator-temp:/orchestrator bin/orchestrator
+	@docker rm orchestrator-temp
 	@rm -rf .shared/
 
 .PHONY: build-local
